@@ -34,7 +34,8 @@ class CsrList(Resource):
     @jwt.has_one_of_roles([Role.internal_user.value])
     def get(self):
         try:
-            csr = CSR.find_by_username(g.jwt_oidc_token_info['username'])
+
+            csr = CSR.find_by_username(g.jwt_oidc_token_info['preferred_username'])
 
             if csr.role.role_code not in ["GA", "SUPPORT"]:
                 return {'message': 'You do not have permission to view this end-point'}, 403
@@ -68,7 +69,7 @@ class CsrSelf(Resource):
     def get(self):
         try:
             # print('====> ATTENTION NEEDED')
-            csr = CSR.find_by_username(g.jwt_oidc_token_info['username'])
+            csr = CSR.find_by_username(g.jwt_oidc_token_info['preferred_username'])
 
             if not csr:
                 return {'Message': 'User Not Found'}, 404

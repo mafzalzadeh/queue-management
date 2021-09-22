@@ -51,7 +51,7 @@ class AppointmentDraftPost(Resource):
 
         # Unauthenticated requests from citizens won't have name, so we set a fallback
         if (hasattr(g, 'jwt_oidc_token_info') and hasattr(g.jwt_oidc_token_info, 'username')):
-            user = PublicUser.find_by_username(g.jwt_oidc_token_info['username'])
+            user = PublicUser.find_by_username(g.jwt_oidc_token_info['preferred_username'])
             citizen_name = user.display_name
         else:
             citizen_name = 'Draft'
@@ -61,7 +61,7 @@ class AppointmentDraftPost(Resource):
 
         csr = None
         if (hasattr(g, 'jwt_oidc_token_info')):
-            csr = CSR.find_by_username(g.jwt_oidc_token_info['username'])
+            csr = CSR.find_by_username(g.jwt_oidc_token_info['preferred_username'])
 
         # CSRs are not limited by drafts,  can always see other CSRs drafts
         # This mitigates two CSRs in office creating at same time for same meeting

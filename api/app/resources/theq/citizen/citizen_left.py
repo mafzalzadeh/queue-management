@@ -37,7 +37,7 @@ class CitizenLeft(Resource):
     def post(self, id):
 
         my_print("++> POST API call time before csr = statement: " + str(datetime.now()))
-        csr = CSR.find_by_username(g.jwt_oidc_token_info['username'])
+        csr = CSR.find_by_username(g.jwt_oidc_token_info['preferred_username'])
         my_print("    ++> Time before citizen = statement: " + str(datetime.now()))
         citizen = Citizen.query.filter_by(citizen_id=id).first()
 

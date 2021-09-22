@@ -27,7 +27,7 @@ from app.auth.auth import jwt
 @jwt.has_one_of_roles([Role.internal_user.value])
 @api_call_with_retry
 def csr_find_by_user():
-    csr = CSR.find_by_username(g.jwt_oidc_token_info['username'])
+    csr = CSR.find_by_username(g.jwt_oidc_token_info['preferred_username'])
     return csr
 
 

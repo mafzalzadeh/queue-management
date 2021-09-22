@@ -34,7 +34,7 @@ class AppointmentList(Resource):
     @jwt.has_one_of_roles([Role.internal_user.value])
     def get(self):
 
-        csr = CSR.find_by_username(g.jwt_oidc_token_info['username'])
+        csr = CSR.find_by_username(g.jwt_oidc_token_info['preferred_username'])
         appt_limit_int = int(appt_limit)     
         # today's date and time
         dt = datetime.now()

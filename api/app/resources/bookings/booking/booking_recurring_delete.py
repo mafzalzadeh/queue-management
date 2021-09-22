@@ -38,7 +38,7 @@ class BookingRecurringDelete(Resource):
 
         print("==> In the python DELETE /bookings/recurring/<id> endpoint")
 
-        csr = CSR.find_by_username(g.jwt_oidc_token_info['username'])
+        csr = CSR.find_by_username(g.jwt_oidc_token_info['preferred_username'])
 
         bookings = Booking.query.filter_by(recurring_uuid=id)\
                                 .filter(db.func.date(Booking.start_time) >= string_today)\

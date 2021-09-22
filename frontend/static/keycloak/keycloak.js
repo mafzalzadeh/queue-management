@@ -710,7 +710,6 @@
                 req.onreadystatechange = function () {
                     if (req.readyState == 4) {
                         if (req.status == 200 || fileLoaded(req)) {
-                        console.log(req)
                             var config = JSON.parse(req.responseText)
 
                             kc.authServerUrl = config['auth-server-url']

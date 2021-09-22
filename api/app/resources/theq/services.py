@@ -38,7 +38,7 @@ class Refresh(Resource):
     def get(self):
         if request.args.get('office_id'):
             office_id = int(request.args.get('office_id'))
-            csr = CSR.find_by_username(g.jwt_oidc_token_info['username'])
+            csr = CSR.find_by_username(g.jwt_oidc_token_info['preferred_username'])
             
             if csr.role.role_code == "GA":
             

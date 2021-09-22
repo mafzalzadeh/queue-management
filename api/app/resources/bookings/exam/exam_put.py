@@ -32,7 +32,7 @@ class ExamPut(Resource):
     @api_call_with_retry
     def put(self, id):
 
-        csr = CSR.find_by_username(g.jwt_oidc_token_info['username'])
+        csr = CSR.find_by_username(g.jwt_oidc_token_info['preferred_username'])
         json_data = request.get_json()
 
         if not json_data:

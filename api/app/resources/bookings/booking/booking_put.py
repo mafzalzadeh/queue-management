@@ -31,7 +31,7 @@ class BookingPut(Resource):
     @jwt.has_one_of_roles([Role.internal_user.value])
     def put(self, id):
 
-        csr = CSR.find_by_username(g.jwt_oidc_token_info['username'])
+        csr = CSR.find_by_username(g.jwt_oidc_token_info['preferred_username'])
 
         json_data = request.get_json()
         i_id_list = json_data.get('invigilator_id')

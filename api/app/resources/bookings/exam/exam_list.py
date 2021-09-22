@@ -33,7 +33,7 @@ class ExamList(Resource):
     @jwt.has_one_of_roles([Role.internal_user.value])
     def get(self):
         try:
-            csr = CSR.find_by_username(g.jwt_oidc_token_info['username'])
+            csr = CSR.find_by_username(g.jwt_oidc_token_info['preferred_username'])
 
             ninety_day_filter = datetime.now() - timedelta(days=90)
 

@@ -41,7 +41,7 @@ class ExamList(Resource):
 
         try:
 
-            csr = CSR.find_by_username(g.jwt_oidc_token_info['username'])
+            csr = CSR.find_by_username(g.jwt_oidc_token_info['preferred_username'])
             is_designate = csr.finance_designate
 
             start_param = request.args.get("start_date")

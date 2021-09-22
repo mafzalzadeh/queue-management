@@ -34,11 +34,11 @@ class CitizenList(Resource):
     @jwt.requires_auth
     def get(self):
         try:
-            user = g.jwt_oidc_token_info['username']
+            user = g.jwt_oidc_token_info['preferred_username']
             has_role([Role.internal_user.value], g.jwt_oidc_token_info['realm_access']['roles'], user, "CitizenList GET /citizens/")
-            csr = CSR.find_by_username(g.jwt_oidc_token_info['username'])
+            csr = CSR.find_by_username(g.jwt_oidc_token_info['preferred_username'])
             if not csr:
-                raise Exception('no user found with username: `{}`'.format(g.jwt_oidc_token_info['username']))
+                raise Exception('no user found with username: `{}`'.format(g.jwt_oidc_token_info['preferred_username']))
             citizens = Citizen.query.filter_by(office_id=csr.office_id, cs_id=active_id) \
                 .order_by(Citizen.priority) \
                 .join(Citizen.service_reqs).all()
@@ -54,15 +54,15 @@ class CitizenList(Resource):
     @api_call_with_retry
     def post(self):
 
-        user = g.jwt_oidc_token_info['username']
+        user = g.jwt_oidc_token_info['preferred_username']
         has_role([Role.internal_user.value], g.jwt_oidc_token_info['realm_access']['roles'], user,
                  "CitizenList POST /citizens/")
 
         json_data = request.get_json()
 
-        csr = CSR.find_by_username(g.jwt_oidc_token_info['username'])
+        csr = CSR.find_by_username(g.jwt_oidc_token_info['preferred_username'])
         if not csr:
-            raise Exception('no user found with username: `{}`'.format(g.jwt_oidc_token_info['username']))
+            raise Exception('no user found with username: `{}`'.format(g.jwt_oidc_token_info['preferred_username']))
 
         try:
             citizen = self.citizen_schema.load(json_data)

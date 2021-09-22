@@ -30,7 +30,7 @@ class AppointmentRecurringDelete(Resource):
     @jwt.has_one_of_roles([Role.internal_user.value])
     def delete(self, id):
 
-        csr = CSR.find_by_username(g.jwt_oidc_token_info['username'])
+        csr = CSR.find_by_username(g.jwt_oidc_token_info['preferred_username'])
 
         appointments = Appointment.query.filter_by(recurring_uuid=id)\
                                         .filter_by(office_id=csr.office_id)\

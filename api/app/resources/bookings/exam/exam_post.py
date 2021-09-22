@@ -42,7 +42,7 @@ class ExamPost(Resource):
         my_print("is_bcmp_req: ")
         my_print(is_bcmp_req)
 
-        csr = CSR.find_by_username(g.jwt_oidc_token_info['username'])
+        csr = CSR.find_by_username(g.jwt_oidc_token_info['preferred_username'])
 
         json_data = request.get_json()
 

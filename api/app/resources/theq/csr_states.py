@@ -30,7 +30,7 @@ class CsrStateList(Resource):
     @jwt.requires_auth
     def get(self):
         try:
-            user = g.jwt_oidc_token_info['username']
+            user = g.jwt_oidc_token_info['preferred_username']
             has_role([Role.internal_user.value], g.jwt_oidc_token_info['realm_access']['roles'], user, "CsrStateList GET /csr_states/")
             states = CSRState.query.all()
             result = self.csr_state_schema.dump(states)

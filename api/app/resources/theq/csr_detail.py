@@ -36,7 +36,7 @@ class Services(Resource):
         if not json_data:
             return {'message': 'No input data received for updating CSR'}, 400
 
-        auth_csr = CSR.find_by_username(g.jwt_oidc_token_info['username'])
+        auth_csr = CSR.find_by_username(g.jwt_oidc_token_info['preferred_username'])
         edit_csr = CSR.query.filter_by(csr_id=id).first_or_404()
 
         if auth_csr.csr_id != edit_csr.csr_id:
@@ -77,7 +77,7 @@ class Services(Resource):
                       room=auth_csr.office.office_name)
 
         # Purge cache of old CSR record so the new one can be fetched by the next request for it.
-        CSR.delete_user_cache(g.jwt_oidc_token_info['username'])
+        CSR.delete_user_cache(g.jwt_oidc_token_info['preferred_username'])
 
         return {'csr': result,
                 'errors': self.csr_schema.validate(edit_csr)}, 200

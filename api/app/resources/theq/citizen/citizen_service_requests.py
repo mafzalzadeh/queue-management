@@ -30,7 +30,7 @@ class CitizenServiceRequests(Resource):
     @jwt.has_one_of_roles([Role.internal_user.value])
     def get(self, id):
         try:
-            csr = CSR.find_by_username(g.jwt_oidc_token_info['username'])
+            csr = CSR.find_by_username(g.jwt_oidc_token_info['preferred_username'])
 
             citizen = Citizen.query.filter_by(citizen_id=id, office_id=csr.office_id).first()
             my_print("==> GET /citizens/" + str(citizen.citizen_id) + '/service_requests/, Ticket: ' + citizen.ticket_number)

@@ -31,7 +31,7 @@ class CitizenBeginService(Resource):
     @jwt.has_one_of_roles([Role.internal_user.value])
     @api_call_with_retry
     def post(self, id):
-        csr = CSR.find_by_username(g.jwt_oidc_token_info['username'])
+        csr = CSR.find_by_username(g.jwt_oidc_token_info['preferred_username'])
         lock = FileLock("lock/begin_citizen_{}.lock".format(csr.office_id))
 
         with lock:

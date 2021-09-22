@@ -34,7 +34,7 @@ class CitizenFinishService(Resource):
     @jwt.has_one_of_roles([Role.internal_user.value])
     @api_call_with_retry
     def post(self, id):
-        csr = CSR.find_by_username(g.jwt_oidc_token_info['username'])
+        csr = CSR.find_by_username(g.jwt_oidc_token_info['preferred_username'])
         citizen = Citizen.query.filter_by(citizen_id=id).first()
         my_print("==> POST /citizens/" + str(citizen.citizen_id) + '/finish_service/, Ticket: ' + citizen.ticket_number)
         active_service_request = citizen.get_active_service_request()

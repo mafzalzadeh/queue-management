@@ -32,7 +32,7 @@ class AppointmentDetail(Resource):
     @jwt.has_one_of_roles([Role.internal_user.value])
     def get(self, id):
 
-        csr = CSR.find_by_username(g.jwt_oidc_token_info['username'])
+        csr = CSR.find_by_username(g.jwt_oidc_token_info['preferred_username'])
 
         try:
             appointment = Appointment.query.filter_by(appointment_id=id)\

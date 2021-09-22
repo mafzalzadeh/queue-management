@@ -32,7 +32,7 @@ class RoomList(Resource):
     @jwt.has_one_of_roles([Role.internal_user.value])
     def get(self):
 
-        csr = CSR.find_by_username(g.jwt_oidc_token_info['username'])
+        csr = CSR.find_by_username(g.jwt_oidc_token_info['preferred_username'])
 
         office_id = request.args.get('office_id', csr.office_id)
         try:

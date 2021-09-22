@@ -32,7 +32,7 @@ class UserAppointments(Resource):
 
         # Get all appointments for the citizen
         try:
-            appointments = PublicUser.find_appointments_by_username(g.jwt_oidc_token_info['username'])
+            appointments = PublicUser.find_appointments_by_username(g.jwt_oidc_token_info['preferred_username'])
 
             result = self.appointments_schema.dump(appointments)
             return {'appointments': result}

@@ -90,7 +90,7 @@ class ServiceRequestsList(Resource):
         except Exception as error:
             return {"message": str(error)}, 401
 
-        csr = CSR.find_by_username(g.jwt_oidc_token_info['username'])
+        csr = CSR.find_by_username(g.jwt_oidc_token_info['preferred_username'])
         service_request, message, code = get_service_request(self, json_data, csr)
         if (service_request is None):
             return {"message": message}, code

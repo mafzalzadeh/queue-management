@@ -30,7 +30,7 @@ class ExamEmailInvigilator(Resource):
     @jwt.requires_auth
     def post(self, exam_id):
 
-        csr = CSR.find_by_username(g.jwt_oidc_token_info['username'])
+        csr = CSR.find_by_username(g.jwt_oidc_token_info['preferred_username'])
 
         try:
             exam = Exam.query.filter_by(exam_id=exam_id).first()
